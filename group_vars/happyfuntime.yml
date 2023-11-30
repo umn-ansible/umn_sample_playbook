@@ -1,0 +1,5 @@
+---
+ansible_become: true
+apache_vhosts:
+  - servername: "{{ hostname }}"
+    documentroot: "/var/www/{{hostname}}/current/public"
