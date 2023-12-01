@@ -9,7 +9,7 @@ php_packages:
   - php-common
   - php-devel
 certbot_auto_renew: true
-certbot_create_if_missing: false
+certbot_create_if_missing: true
 certbot_create_method: standalone
 certbot_admin_email: latistecharch@umn.edu
 certbot_certs:
