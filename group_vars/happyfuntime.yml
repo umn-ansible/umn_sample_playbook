@@ -8,3 +8,6 @@ php_packages:
   - php-cli
   - php-common
   - php-devel
+certbot_auto_renew: true
+certbot_create_if_missing: false
+certbot_create_method: standalone
