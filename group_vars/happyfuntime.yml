@@ -16,4 +16,4 @@ certbot_certs:
   - domains:
     - "{{ hostname }}"
 certbot_create_standalone_stop_services:
-  - apache
+  - httpd
