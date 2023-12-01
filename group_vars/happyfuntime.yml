@@ -3,6 +3,12 @@ ansible_become: true
 apache_vhosts:
   - servername: "{{ hostname }}"
     documentroot: "/var/www/{{hostname}}/current/public"
+apache_vhosts_ssl:
+  - servername: "{{ hostname }}"
+    documentroot: "/var/www/{{hostname}}/current/public"
+    certificate_file: "/etc/letsencrypt/live/{{hostname}}/cert.pem"
+    certificate_key_file: "/etc/letsencrypt/live/{{hostname}}/privkey.pem"
+    certificate_chain_file: "/etc/letsencrypt/live/{{hostname}}/chain.pem"
 php_packages:
   - php
   - php-cli
