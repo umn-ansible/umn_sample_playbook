@@ -15,3 +15,5 @@ certbot_admin_email: latistecharch@umn.edu
 certbot_certs:
   - domains:
     - "{{ hostname }}"
+certbot_create_standalone_stop_services:
+  - apache
