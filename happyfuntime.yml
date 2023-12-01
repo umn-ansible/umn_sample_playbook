@@ -16,4 +16,4 @@
       loop: "{{ ['http', 'https'] | product(['public', 'TC-Campus', 'Bastions']) | list}}"
   roles:
     - geerlingguy.apache
-  
+    - geerlingguy.php
