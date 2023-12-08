@@ -19,7 +19,7 @@
     - geerlingguy.php
     - geerlingguy.ruby
     # - sectigo
-    - geerlingguy.nginx
     - geerlingguy.certbot
+    - geerlingguy.nginx
     - geerlingguy.nodejs
     - geerlingguy.redis
