@@ -1,2 +1,2 @@
 ---
-hostname: cla-happyfuntime2-prd.oit.umn.edu
+hostname: {{ inventory_hostname }}
