@@ -1,2 +1,2 @@
 ---
-hostname: "{{ inventory_hostname }}"
+hostname: "cla-happyfuntime-prd.oit.umn.edu"
