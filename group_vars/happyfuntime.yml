@@ -41,3 +41,4 @@ certbot_create_standalone_stop_services:
 nodejs_npm_global_packages:
   - name: jslint
   - name: node-sass
+nginx_remove_default_vhost: false
