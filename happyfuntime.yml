@@ -5,7 +5,6 @@
         pkg: "git"
         state: "present"
       become: yes
-  tasks:
     - name: "Open https and http ports in firewalld"
       firewalld:
         service: "{{ item[0] }}"
