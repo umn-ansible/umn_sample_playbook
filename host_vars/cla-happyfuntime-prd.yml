@@ -1,2 +1,2 @@
 ---
-hostname: {{ inventory_hostname }}
+hostname: "{{ inventory_hostname }}"
