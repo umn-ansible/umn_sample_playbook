@@ -22,3 +22,4 @@
     - geerlingguy.nginx
     - geerlingguy.certbot
     - geerlingguy.nodejs
+    - geerlingguy.redis
