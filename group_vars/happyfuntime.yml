@@ -23,3 +23,5 @@ certbot_certs:
     - "{{ hostname }}"
 certbot_create_standalone_stop_services:
   - httpd
+sectigo_eab_kid: "{{ sectigo_kid }}"
+sectigo_eab_hmac:  "{{ sectigo_hmac }}"

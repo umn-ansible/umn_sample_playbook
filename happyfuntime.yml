@@ -17,4 +17,5 @@
   roles:
     - geerlingguy.apache
     - geerlingguy.php
+    - sectigo
     - geerlingguy.certbot
