@@ -36,8 +36,7 @@ certbot_admin_email: latistecharch@umn.edu
 certbot_certs:
   - domains:
     - "{{ hostname }}"
-certbot_create_standalone_stop_services:
-  - 
+certbot_create_standalone_stop_services: []
 nodejs_npm_global_packages:
   - name: jslint
   - name: node-sass
