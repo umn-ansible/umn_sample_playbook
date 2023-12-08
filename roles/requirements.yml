@@ -2,4 +2,4 @@
 - name: geerlingguy.php
 - name: geerlingguy.certbot
 - name: sectigo
-  src: git+https://github.umn.edu/ansible-roles/sectigo.git
+  src: git+https://github.com/umn-ansible/umn_sectigo_role.git
