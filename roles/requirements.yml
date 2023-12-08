@@ -3,5 +3,6 @@
 - name: geerlingguy.certbot
 - name: geerlingguy.nginx
 - name: geerlingguy.ruby
+- name: geerlingguy.nodejs
 - name: sectigo
   src: git+https://github.com/umn-ansible/umn_sectigo_role.git

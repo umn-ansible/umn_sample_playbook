@@ -38,3 +38,6 @@ certbot_certs:
     - "{{ hostname }}"
 certbot_create_standalone_stop_services:
   - nginx
+nodejs_npm_global_packages:
+  - name: jslint
+  - name: node-sass

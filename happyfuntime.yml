@@ -13,7 +13,7 @@
         state: enabled
         immediate: yes
         zone: "{{ item[1] }}"
-      loop: "{{ ['http', 'https'] | product(['public', 'TC-Campus', 'Bastions']) | list}}"
+      loop: "{{ ['http', 'https'] | product(['public', 'Campus', 'Bastions']) | list}}"
   roles:
     # - geerlingguy.apache
     - geerlingguy.php
@@ -21,3 +21,4 @@
     # - sectigo
     - geerlingguy.nginx
     - geerlingguy.certbot
+    - geerlingguy.nodejs
