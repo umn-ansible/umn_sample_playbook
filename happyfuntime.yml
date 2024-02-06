@@ -14,9 +14,10 @@
         zone: "{{ item[1] }}"
       loop: "{{ ['http', 'https'] | product(['public', 'Campus', 'Bastions']) | list}}"
   roles:
+    - user_management
     # - geerlingguy.apache
     - geerlingguy.php
-    - geerlingguy.ruby
+    # - geerlingguy.ruby
     # - sectigo
     - geerlingguy.certbot
     - geerlingguy.nginx
