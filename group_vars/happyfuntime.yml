@@ -1,5 +1,23 @@
 ---
 ansible_become: true
+umn_user_management_directory_users:
+  - name: "mcfa0086"
+    revoke: no
+    sudo: yes
+    authorized_keys: 
+      - 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAyEflucZ6zQruAmA5I2CBTE8H6jkMsmg2giLcJ6Hb5zQvBYbqGaawXiLaPfPm8lotlTLf0XR8Q7J39qFYP3diwzYSj9IlG1NSE1nDOvbitMQFn9s08Ei9zi4TJb2rR/tmLYZLlyPsJgoJpEis2nl+IVjJ+uyu99B/94IEsudB7+YIcu11BWlpb5kuVXNkF4XLojoKHsBn9Aeb5DCvOFtzXAgWCAvsbe0b5kOnvu84EBB1wxMmNx6LPe+kd/NrwVEorgQSSX1g/raYVANALCqgVmS3kKF6iVuCBpdfPFwo8djEJPzj7V3QI0Rc2/l6AZ7xCtCU4JCsZGByDiCJ5JRQfQ== mcfa0086@umn.edu'
+umn_user_management_deploy_users:
+  - name: "latis_deploy"
+    uid: 30000
+    comment: "LATIS Deploy User"
+    primary_group: "latis_deploy"
+    shell: /bin/bash
+    create_home: yes
+    groups: []
+    authorized_keys_from_directory_users: yes
+    
+
+
 nginx_vhosts:
   - listen: "80"
     server_name: "{{ hostname }}"
