@@ -13,6 +13,15 @@
         immediate: yes
         zone: "{{ item[1] }}"
       loop: "{{ ['http', 'https'] | product(['public', 'Campus', 'Bastions']) | list}}"
+    - name: "Grant latis_deploy user permissions to write to /var/www/html/"
+      file:
+        path: "/var/www/html/"
+        state: directory
+        owner: "latis_deploy"
+        group: "latis_deploy"
+        mode: "0755"
+      become: yes
+    
   roles:
     - user_management
     # - geerlingguy.apache
