@@ -43,10 +43,18 @@
         setype: "httpd_sys_content_t"
         state: "present"
       become: yes
-    - name: "configure SElinux so that nginx can write to /var/www/html/storage"
+    - name: "configure SElinux so that nginx can write to /var/www/html/<release>/storage"
       sefcontext:
-        target: "/var/www/html/storage(/.*)?"
+        target: "/var/www/html(/.*)?/storage(/.*)?"
         setype: "httpd_sys_rw_content_t"
+        state: "present"
+      become: yes
+    - name: "use acl to grant nginx access to /var/opt/remi/php83/run/php-fpm/www.sock"
+      acl:
+        path: "/var/opt/remi/php83/run/php-fpm/www.sock"
+        entity: "nginx"
+        etype: "user"
+        permissions: "rw"
         state: "present"
       become: yes
   roles:
