@@ -52,6 +52,7 @@ php_packages:
   - php{{php_version}}-php-pecl-apcu
   - composer
 php_enablerepo: "remi"
+php_webserver_daemon: "nginx"
 certbot_auto_renew: true
 certbot_create_if_missing: true
 certbot_create_method: standalone
