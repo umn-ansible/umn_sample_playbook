@@ -37,12 +37,13 @@
         group: "nginx"
         mode: "0777"
       become: yes
-    - name: "use acl to grant nginx access to all files in /var/www/html/"
+    - name: "use acl to grant nginx access to all files in /var/www/html/, recurisvely"
       acl:
         path: "/var/www/html/"
         entity: "nginx"
         etype: "user"
         permissions: "rwx"
+        recursive: yes
         state: "present"
       become: yes
     - name: "Set SELinux context for /var/www/html/"
