@@ -43,14 +43,13 @@ nginx_vhosts:
 
 php_version: '8.3'
 php_packages:
-  - php{{php_version}}-php
+  - php{{php_version}}
   - php{{php_version}}-php-cli
   - php{{php_version}}-php-common
   - php{{php_version}}-php-devel
-  - php{{php_version}}-php-mysql
+  - php{{php_version}}-php-mysqlnd
   - php{{php_version}}-php-opcache
-  - php{{php_version}}-php-apcu
-  - php{{php_version}}-php-curl
+  - php{{php_version}}-php-pecl-apcu
   - composer
 php_enablerepo: "remi"
 certbot_auto_renew: true
