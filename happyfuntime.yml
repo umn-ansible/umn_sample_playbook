@@ -37,6 +37,14 @@
         group: "nginx"
         mode: "0777"
       become: yes
+    - name: "use acl to grant nginx access to all files in /var/www/html/"
+      acl:
+        path: "/var/www/html/"
+        entity: "nginx"
+        etype: "user"
+        permissions: "rwx"
+        state: "present"
+      become: yes
     - name: "Set SELinux context for /var/www/html/"
       sefcontext:
         target: "/var/www/html(/.*)?"
