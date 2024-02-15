@@ -29,9 +29,9 @@
         permissions: "rwx"
         state: "present"
       become: yes
-    - name: "Create a /var/www/html/storage and set it to 777"
+    - name: "Create a /var/www/html/shared/storage and set it to 777"
       file:
-        path: "/var/www/html/storage"
+        path: "/var/www/html/shared/storage"
         state: directory
         owner: "nginx"
         group: "nginx"
@@ -54,9 +54,19 @@
       become: yes
     - name: "configure SElinux so that nginx can write to /var/www/html/<release>/storage"
       sefcontext:
-        target: "/var/www/html(/.*)?/storage(/.*)?"
+        target: "/var/www/html/shared/storage/(/.*)?"
         setype: "httpd_sys_rw_content_t"
         state: "present"
+      become: yes
+    - name: "enable SELinux boolean to allow httpd to make network connections"
+      seboolean:
+        name: "httpd_can_network_connect"
+        state: "on"
+      become: yes
+    - name: "enable SELinux boolean to allow httpd to execmem"
+      seboolean:
+        name: "httpd_execmem"
+        state: "on"
       become: yes
   roles:
     - user_management
