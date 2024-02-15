@@ -50,6 +50,7 @@ php_packages:
   - php{{php_version}}-php-mysqlnd
   - php{{php_version}}-php-opcache
   - php{{php_version}}-php-pecl-apcu
+  - php{{php_version}}-syspaths
 php_enablerepo: "remi"
 php_webserver_daemon: "nginx"
 certbot_auto_renew: true

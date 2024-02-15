@@ -21,7 +21,6 @@
         group: "latis_deploy"
         mode: "0755"
       become: yes
-    
   roles:
     - user_management
     # - geerlingguy.apache
