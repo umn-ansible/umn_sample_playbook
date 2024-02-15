@@ -58,14 +58,6 @@
         setype: "httpd_sys_rw_content_t"
         state: "present"
       become: yes
-    - name: "use acl to grant nginx access to /var/opt/remi/php83/run/php-fpm/www.sock"
-      acl:
-        path: "/var/opt/remi/php83/run/php-fpm/www.sock"
-        entity: "nginx"
-        etype: "user"
-        permissions: "rw"
-        state: "present"
-      become: yes
   roles:
     - user_management
     # - geerlingguy.apache
