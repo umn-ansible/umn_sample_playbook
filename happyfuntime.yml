@@ -25,6 +25,7 @@
   roles:
     - user_management
     # - geerlingguy.apache
+    - geerlingguy.repo-remi
     - geerlingguy.php
     # - geerlingguy.ruby
     # - sectigo
