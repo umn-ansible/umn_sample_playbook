@@ -55,7 +55,7 @@ php_enablerepo: "remi"
 php_webserver_daemon: "nginx"
 php_enable_php_fpm: true
 php_fpm_pool_user: "nginx"
-
+php_fpm_daemon: "php83-php-fpm"
 certbot_auto_renew: true
 certbot_create_if_missing: true
 certbot_create_method: standalone
