@@ -41,7 +41,7 @@ nginx_vhosts:
       ssl_protocols       TLSv1.1 TLSv1.2;
       ssl_ciphers         HIGH:!aNULL:!MD5;
 
-php_version: '8.3'
+php_version: '83'
 php_packages:
   - php{{php_version}}
   - php{{php_version}}-php-cli
