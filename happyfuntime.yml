@@ -20,7 +20,7 @@
         owner: "nginx"
         group: "nginx"
         mode: "0755"
-      become: yes"
+      become: yes
     - name: "Grant latis_deploy user permissisons to write to var/www/html using an actl"
       acl:
         path: "/var/www/html/"
