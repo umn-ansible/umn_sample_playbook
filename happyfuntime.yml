@@ -13,7 +13,7 @@
         immediate: yes
         zone: "{{ item[1] }}"
       loop: "{{ ['http', 'https'] | product(['public', 'Campus', 'Bastions']) | list}}"
-    - name: "Grant latis_deploy user permissions to write to /var/www/html/"
+    - name: "Grant nginx user permissions to write to /var/www/html/"
       file:
         path: "/var/www/html/"
         state: directory
@@ -45,6 +45,7 @@
         permissions: "rwx"
         recursive: yes
         state: "present"
+        default: yes
       become: yes
     - name: "Set SELinux context for /var/www/html/"
       sefcontext:
