@@ -17,9 +17,37 @@
       file:
         path: "/var/www/html/"
         state: directory
-        owner: "latis_deploy"
-        group: "latis_deploy"
+        owner: "nginx"
+        group: "nginx"
         mode: "0755"
+      become: yes"
+    - name: "Grant latis_deploy user permissisons to write to var/www/html using an actl"
+      acl:
+        path: "/var/www/html/"
+        entity: "latis_deploy"
+        etype: "user"
+        permissions: "rwx"
+        state: "present"
+      become: yes
+    - name: "Create a /var/www/html/storage and set it to 777"
+      file:
+        path: "/var/www/html/storage"
+        state: directory
+        owner: "nginx"
+        group: "nginx"
+        mode: "0777"
+      become: yes
+    - name: "Set SELinux context for /var/www/html/"
+      sefcontext:
+        target: "/var/www/html(/.*)?"
+        setype: "httpd_sys_content_t"
+        state: "present"
+      become: yes
+    - name: "configure SElinux so that nginx can write to "/var/www/html/storage"
+      sefcontext:
+        target: "/var/www/html/storage(/.*)?"
+        setype: "httpd_sys_rw_content_t"
+        state: "present"
       become: yes
   roles:
     - user_management

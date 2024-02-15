@@ -25,13 +25,13 @@ nginx_vhosts:
     filename: "{{hostname}}.80.conf"
   - listen: "443 ssl http2"
     server_name: "{{ hostname }}"
-    root: "/var/www/html/current/"
+    root: "/var/www/html/current/public/"
     index: "index.php index.html index.htm"
     state: "present"
     extra_parameters: |
       location ~ \.php$ {
           fastcgi_split_path_info ^(.+\.php)(/.+)$;
-          fastcgi_pass unix:/var/run/php-fpm/www.sock;
+          fastcgi_pass unix:/var/opt/remi/php83/run/php-fpm/www.sock;
           fastcgi_index index.php;
           fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
           include fastcgi_params;
@@ -53,6 +53,9 @@ php_packages:
   - php{{php_version}}-syspaths
 php_enablerepo: "remi"
 php_webserver_daemon: "nginx"
+php_enable_php_fpm: true
+php_fpm_pool_user: "nginx"
+
 certbot_auto_renew: true
 certbot_create_if_missing: true
 certbot_create_method: standalone
