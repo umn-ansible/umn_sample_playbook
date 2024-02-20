@@ -21,6 +21,8 @@ laravel_app_key: "{{ lookup('umn_community.umn_rhel9_management.azure_keyvault',
 
 laravel_env_additions:
   - "APP_KEY={{ laravel_app_key }}"
+  - "DB_CONNECTION=sqlite"
+  - "DB_DATABASE=database.sqlite"
 
 
 
