@@ -81,6 +81,13 @@
         name: "httpd_execmem"
         state: "on"
       become: yes
+    - name: copy in laravel env file
+      template:
+        src: "env.j2"
+        dest: "/var/www/html/shared/.env"
+        owner: "latis_deploy"
+        group: "latis_deploy"
+        mode: "0644"
   roles:
     - user_management
     # - geerlingguy.apache

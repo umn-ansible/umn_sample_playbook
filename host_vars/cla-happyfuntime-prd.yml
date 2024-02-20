@@ -1,2 +1,3 @@
 ---
 hostname: "cla-mycareermanagment-dev-02.oit.umn.edu"
+azure_akv_vault_url: "techarch-dev.vault.azure.net"

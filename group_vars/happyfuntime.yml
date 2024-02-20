@@ -17,6 +17,12 @@ umn_user_management_deploy_users:
     authorized_keys_from_directory_users: yes
 
 
+laravel_app_key: "{{ lookup('umn_community.umn_rhel9_management.azure_keyvault', 'happyfuntime-secret') }}"
+
+laravel_env_additions:
+  - "APP_KEY={{ laravel_app_key }}"
+
+
 
 nginx_vhosts:
   - listen: "80"
