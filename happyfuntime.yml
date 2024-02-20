@@ -87,8 +87,8 @@
     - geerlingguy.repo-remi
     # - geerlingguy.ruby
     # - sectigo
+    - geerlingguy.certbot
     - geerlingguy.nginx
     - geerlingguy.php
-    - geerlingguy.certbot
     - geerlingguy.nodejs
     - geerlingguy.redis
