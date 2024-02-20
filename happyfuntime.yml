@@ -34,7 +34,7 @@
       file:
         path: "/var/www/html/shared/storage"
         state: directory
-        owner: "nginx"
+        owner: "latis_deploy"
         group: "nginx"
         mode: "0777"
       become: yes
