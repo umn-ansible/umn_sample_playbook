@@ -36,12 +36,13 @@ nginx_vhosts:
     root: "/var/www/html/current/public/"
     index: "index.php index.html index.htm"
     state: "present"
+    # realpath param in nginx config is necessary so that it reloads files when symlink is updated
     extra_parameters: |
       location ~ \.php$ {
           fastcgi_split_path_info ^(.+\.php)(/.+)$;
           fastcgi_pass 127.0.0.1:9000;
           fastcgi_index index.php;
-          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
           include fastcgi_params;
       }
       ssl_certificate     /etc/letsencrypt/live/{{hostname}}/cert.pem;
