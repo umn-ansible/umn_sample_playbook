@@ -10,3 +10,5 @@
   src: git+https://github.com/umn-ansible/umn_sectigo_role.git
 - name: user_management
   src: git+https://github.com/umn-ansible/umn_user_management_role.git
+- name: webapp
+  src: git+https://github.com/umn-ansible/umn_webapp_role.git

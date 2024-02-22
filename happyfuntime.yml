@@ -6,30 +6,6 @@
         state: "present"
       become: yes
   post_tasks:
-    - name: "Open https and http ports in firewalld"
-      firewalld:
-        service: "{{ item[0] }}"
-        permanent: yes
-        state: enabled
-        immediate: yes
-        zone: "{{ item[1] }}"
-      loop: "{{ ['http', 'https'] | product(['public', 'Campus', 'Bastions']) | list}}"
-    - name: "Grant nginx user permissions to write to /var/www/html/"
-      file:
-        path: "/var/www/html/"
-        state: directory
-        owner: "nginx"
-        group: "nginx"
-        mode: "0755"
-      become: yes
-    - name: "Grant latis_deploy user permissisons to write to var/www/html using an actl"
-      acl:
-        path: "/var/www/html/"
-        entity: "latis_deploy"
-        etype: "user"
-        permissions: "rwx"
-        state: "present"
-      become: yes
     - name: "Create a /var/www/html/shared/storage and set it to 777"
       file:
         path: "/var/www/html/shared/storage"
@@ -37,22 +13,6 @@
         owner: "latis_deploy"
         group: "nginx"
         mode: "0777"
-      become: yes
-    - name: "use acl to grant nginx access to all files in /var/www/html/, recurisvely"
-      acl:
-        path: "/var/www/html/"
-        entity: "nginx"
-        etype: "user"
-        permissions: "rwx"
-        recursive: yes
-        state: "present"
-        default: yes
-      become: yes
-    - name: "Set SELinux context for /var/www/html/"
-      sefcontext:
-        target: "/var/www/html(/.*)?"
-        setype: "httpd_sys_content_t"
-        state: "present"
       become: yes
     - name: "configure SElinux so that nginx can write to /var/www/html/<release>/storage"
       sefcontext:
@@ -65,21 +25,6 @@
         target: "/var/www/html/releases/[^/]*/storage/(/.*)?"
         setype: "httpd_sys_rw_content_t"
         state: "present"
-      become: yes
-    - name: "enable SELinux boolean to allow httpd to make network connections"
-      seboolean:
-        name: "httpd_can_network_connect"
-        state: "on"
-      become: yes
-    - name: "enable SELinux boolean to allow httpd to make network connections"
-      seboolean:
-        name: "httpd_unified"
-        state: "on"
-      become: yes
-    - name: "enable SELinux boolean to allow httpd to execmem"
-      seboolean:
-        name: "httpd_execmem"
-        state: "on"
       become: yes
     - name: copy in laravel env file
       template:
@@ -96,6 +41,7 @@
     # - sectigo
     - geerlingguy.certbot
     - geerlingguy.nginx
+    - webapp
     - geerlingguy.php
     - geerlingguy.nodejs
     - geerlingguy.redis
