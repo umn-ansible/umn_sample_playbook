@@ -1,5 +1,5 @@
 ---
-ansible_become: true
+deploy_user: "latis-deploy"
 umn_user_management_directory_users:
   - name: "mcfa0086"
     revoke: no
@@ -23,7 +23,6 @@ laravel_env_additions:
   - "APP_KEY={{ laravel_app_key }}"
   - "DB_CONNECTION=sqlite"
   - "DB_DATABASE=database.sqlite"
-
 
 
 nginx_vhosts:
