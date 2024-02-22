@@ -5,6 +5,9 @@
         pkg: "git"
         state: "present"
       become: yes
+    - name: "enable legacy cert support, because nodejs package is current broken"
+      command: "update-crypto-policies --set LEGACY"
+      become: yes
   post_tasks:
     - name: "Create a /var/www/html/shared/storage and set it to 777"
       file:
