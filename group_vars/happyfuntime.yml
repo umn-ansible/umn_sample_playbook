@@ -1,6 +1,6 @@
 ---
 ansible_become: true
-deploy_user: "latis-deploy"
+deploy_user: "latis_deploy"
 umn_user_management_directory_users:
   - name: "mcfa0086"
     revoke: no
