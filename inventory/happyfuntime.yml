@@ -1,3 +1,6 @@
-[happyfuntime]
+[laravel_app]
+cla-happyfuntime-prd ansible_host=cla-mycareermanagment-dev-02.oit.umn.edu
+
+[rails_app]
 cla-happyfuntime-prd ansible_host=cla-mycareermanagment-dev-02.oit.umn.edu
 

@@ -1,0 +1,15 @@
+[Unit]
+Description=Puma application server
+SourcePath=/var/www/html/.daemonrc
+After=nginx.service
+
+[Service]
+Type=simple
+User=nginx
+ExecStart=/var/www/html/.daemonrc start
+ExecStop=/var/www/html/.daemonrc stop
+Restart=on-failure
+TimeoutStopSec=120
+
+[Install]
+WantedBy=default.target

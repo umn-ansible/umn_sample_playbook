@@ -1,0 +1,98 @@
+---
+- hosts: rails_app
+  pre_tasks:
+    - yum:
+        pkg: "git"
+        state: "present"
+      become: yes
+    - name: "enable legacy cert support, because nodejs package is current broken"
+      command: "update-crypto-policies --set LEGACY"
+      become: yes
+    - name: Use subscription-manager to enable the codeready repo
+      command: subscription-manager repos --enable codeready-builder-for-rhel-9-x86_64-rpms
+      become: yes
+    - name: "Add packages for ruby compilation"
+      yum:
+        name:
+          - libyaml-devel
+        state: present
+  post_tasks:
+    - name: "Install Puma gem"
+      gem:
+        name: "puma"
+        state: present
+      become: true
+    - name: "Install app daemon script"
+      template:
+        src: "daemon.j2"
+        dest: "/var/www/html/.daemonrc"
+        mode: u=rwx,g=rx,o=
+    - name: Ensure app Systemd service present
+      template:
+        src: templates/puma-service.j2
+        dest: "/etc/systemd/system/puma.service"
+    - name: load new systemd service
+      systemd:
+        daemon_reload: yes
+    - name: "Start and enable the puma service"
+      service:
+        name: "puma"
+        state: started
+        enabled: yes
+    - name: "Create a /var/www/html/shared/log and set it to 777"
+      file:
+        path: "/var/www/html/shared/"
+        state: directory
+        owner: "latis_deploy"
+        group: "nginx"
+        mode: "0777"
+      become: yes
+    - name: "Create a shared files dirs for rails application using a loop"
+      file:
+        path: "/var/www/html/shared/{{ item }}"
+        state: directory
+        owner: "latis_deploy"
+        group: "nginx"
+        mode: "0755"
+      become: yes
+      with_items:
+        - config
+        - public
+    - name: "configure SElinux so that nginx can write to /var/www/html/<release>/log"
+      sefcontext:
+        target: "/var/www/html/shared/log/(/.*)?"
+        setype: "httpd_sys_rw_content_t"
+        state: "present"
+      become: yes
+    - name: "configure SElinux so that nginx can write to /var/www/html/<release>/log"
+      sefcontext:
+        target: "/var/www/html/releases/[^/]*/log/(/.*)?"
+        setype: "httpd_sys_rw_content_t"
+        state: "present"
+      become: yes
+    - name: copy in database.yml
+      template:
+        src: "database.j2"
+        dest: "/var/www/html/shared/config/database.yml"
+        owner: "latis_deploy"
+        group: "latis_deploy"
+        mode: "0644"
+    - name: copy in secrets.yml
+      template:
+        src: "secrets.j2"
+        dest: "/var/www/html/shared/config/secrets.yml"
+        owner: "latis_deploy"
+        group: "latis_deploy"
+        mode: "0644"    
+  roles:
+    - user_management
+    # - geerlingguy.apache
+    # - geerlingguy.repo-remi
+    - geerlingguy.ruby
+    # - sectigo
+    - geerlingguy.certbot
+    - geerlingguy.nginx
+    - webapp
+    # - geerlingguy.php
+    - geerlingguy.nodejs
+    - geerlingguy.redis
