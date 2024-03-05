@@ -90,9 +90,9 @@
     # - geerlingguy.repo-remi
     - geerlingguy.ruby
     # - sectigo
+    - geerlingguy.nginx
     - webapp
     - geerlingguy.certbot
-    - geerlingguy.nginx
     # - geerlingguy.php
     - geerlingguy.nodejs
     - geerlingguy.redis
