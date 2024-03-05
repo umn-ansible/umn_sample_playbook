@@ -16,6 +16,7 @@ umn_user_management_deploy_users:
     create_home: yes
     groups: []
     authorized_keys_from_directory_users: yes
+    sudoers_commands: []
 
 db_hostname: ""
 db_database: ""
