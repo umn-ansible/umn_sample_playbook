@@ -13,8 +13,8 @@
       file:
         path: "/var/www/html/shared/storage"
         state: directory
-        owner: "latis_deploy"
-        group: "nginx"
+        owner: "{{ deploy_user  }}"
+        group: "{{ deploy_user  }}"
         mode: "0777"
       become: yes
     - name: "configure SElinux so that nginx can write to /var/www/html/<release>/storage"
@@ -33,8 +33,8 @@
       template:
         src: "env.j2"
         dest: "/var/www/html/shared/.env"
-        owner: "latis_deploy"
-        group: "latis_deploy"
+        owner: "{{ deploy_user  }}"
+        group: "{{ deploy_user  }}"
         mode: "0644"
   roles:
     - user_management

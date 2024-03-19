@@ -1,6 +1,12 @@
 ---
 ansible_become: true
 deploy_user: "latis_deploy"
+acl_permission_users:
+  - "{{ deploy_user}}"
+  - "nginx"
+  - "puma"
+
+
 umn_user_management_directory_users:
   - name: "mcfa0086"
     revoke: no
@@ -17,6 +23,13 @@ umn_user_management_deploy_users:
     groups: []
     authorized_keys_from_directory_users: yes
     sudoers_commands: []
+umn_user_management_service_users:
+  - name: puma
+    uid: 30001
+    primary_group: puma
+    shell: /bin/false
+    create_home: no
+    groups: []
 
 db_hostname: ""
 db_database: ""
@@ -24,15 +37,10 @@ db_username: ""
 db_password: ""
 secret_key: ""
 
-
-
-passenger_server_name: "{{ hostname}}"
-passenger_app_root: "/var/www/html/current/public"
-passenger_app_env: "remotedev"
-
-
-nginx_extra_conf_options: |
-  load_module modules/ngx_http_passenger_module.so;
+nginx_upstreams:
+  - name: app
+    servers:
+      - "unix:///var/run/puma/rails_app/rails_app.sock fail_timeout=0"
 
 nginx_vhosts:
   - listen: "80"
@@ -45,8 +53,19 @@ nginx_vhosts:
     state: "present"
     # realpath param in nginx config is necessary so that it reloads files when symlink is updated
     extra_parameters: |
-      passenger_enabled   "on";
-      passenger_ruby     /usr/bin/ruby;
+      location / {
+        proxy_pass http://app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      }
+      location ~ ^/(500|404|422).html {
+        root /var/www/html/current/public;
+      }
+      error_page 500 502 503 504 /500.html;
+      error_page 404 /404.html;
+      error_page 422 /422.html;
       ssl_certificate     /etc/letsencrypt/live/{{hostname}}/cert.pem;
       ssl_certificate_key /etc/letsencrypt/live/{{hostname}}/privkey.pem;
       ssl_protocols       TLSv1.1 TLSv1.2;
@@ -78,3 +97,18 @@ nodejs_npm_global_packages:
   - name: node-sass
 
 nginx_remove_default_vhost: false
+
+puma_app_name: "rails_app"
+rails_env: test
+puma_app_env: '{{ rails_env }}'
+puma_apps_dir: /var/www/html
+# puma_threads_min
+# puma_threads_max
+# rails_env: development
+puma_configs_dir: /etc/puma
+puma_logs_dir: /var/log/puma
+puma_pids_dir: /var/run/puma
+puma_sockets_dir: /var/run/puma
+
+puma_user: puma
+puma_group: puma

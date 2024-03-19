@@ -1,13 +1,15 @@
 [Unit]
 Description=Puma application server
-SourcePath=/var/www/html/.daemonrc
 After=nginx.service
 
 [Service]
 Type=simple
-User=nginx
-ExecStart=/var/www/html/.daemonrc start
-ExecStop=/var/www/html/.daemonrc stop
+User=puma
+WorkingDirectory=/var/www/html/current/
+RuntimeDirectory=/var/run/puma
+RuntimeDirectoryMode=0755
+ExecStart=/usr/local/bin/bundle exec puma -C /etc/puma/puma.rb --environment {{rails_env}}
+ExecStop=/usr/local/bin/bundle exec pumactl -S /var/run/puma/puma.state stop
 Restart=on-failure
 TimeoutStopSec=120
 
